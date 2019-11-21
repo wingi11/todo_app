@@ -1,9 +1,10 @@
-import 'package:sqflite/sqflite.dart';
-
+///
+/// Storage class for the todo item
+///
 class Todo {
-  final int id;
-  final bool done;
-  final String title;
+  int id;
+  bool done;
+  String title;
 
   Todo({this.id, this.done, this.title});
 
@@ -15,4 +16,3 @@ class Todo {
     };
   }
 }
-
