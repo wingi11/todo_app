@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:todo_app/TodoItem.dart';
 import 'package:todo_app/models/Todo.dart';
 import 'package:todo_app/repository/TodoRepository.dart';
@@ -28,6 +30,15 @@ class _MainAppState extends State<MainApp> {
   }
 
   ///
+  /// This method adds a new todo item with the item controller
+  /// and removes the remaining text from the textfield.
+  ///
+  void addTodoItem() {
+    itemController.addItem(textController.text);
+    textController.text = "";
+  }
+
+  ///
   /// Builds the widget
   ///
   @override
@@ -47,34 +58,48 @@ class _MainAppState extends State<MainApp> {
                           itemExtent: 45,
                           itemCount: itemController.todoList.length,
                           itemBuilder: (BuildContext context, int index) =>
-                              new TodoItem(itemController.todoList[index],
-                                  itemController))),
+                              Dismissible(
+                                key: Key(itemController.todoList[index].title),
+                                background: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        0, 0, 16, 0),
+                                    child: Icon(
+                                      Icons.delete, color: Colors.white,),
+                                  ),
+                                  color: Colors.red,
+                                  alignment: Alignment.centerRight,
+                                ),
+                                direction: DismissDirection.endToStart,
+                                onDismissed: (direction) {
+                                  itemController.removeItem(
+                                      itemController.todoList[index]);
+                                },
+                                child: TodoItem(itemController.todoList[index],
+                                    itemController),
+                              ))),
                   Row(
                     children: <Widget>[
-                      Container(
-                        width: 60,
-                        child: Icon(
-                          Icons.add,
-                          size: 30,
-                          color: Colors.grey,
-                        ),
-                      ),
                       Flexible(
                         flex: 2,
-                        child: CupertinoTextField(
-                          controller: textController,
-                          style: TextStyle(fontSize: 20),
-                          onEditingComplete: () {
-                            print(textController.text);
-                            itemController.addItem(textController.text);
-                            textController.text = "";
-                          },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(16.0, 0, 0, 0),
+                          child: CupertinoTextField(
+                            controller: textController,
+                            style: TextStyle(fontSize: 20),
+                            onEditingComplete: () {
+                              addTodoItem();
+                            },
+                          ),
                         ),
                       ),
                       CupertinoButton(
-                        child: Text("Remove"),
+                        child: Icon(
+                          Icons.add,
+                          size: 30,
+                        ),
                         onPressed: () {
-                          itemController.removeAll();
+                          addTodoItem();
                         },
                       )
                     ],
