@@ -23,7 +23,7 @@ class _MainAppState extends State<MainApp> {
   /// Initialise the TodoItem- and TextEditingController
   ///
   @override
-  initState() {
+  void initState() {
     super.initState();
     itemController = TodoItemController(this);
     textController = TextEditingController();
