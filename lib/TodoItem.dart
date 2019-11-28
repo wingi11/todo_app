@@ -5,9 +5,9 @@ import 'package:todo_app/models/Todo.dart';
 
 class TodoItem extends StatefulWidget {
   Todo todo;
-  TodoItemController itemController;
+  TodoController itemController;
 
-  TodoItem(Todo todo, TodoItemController itemController) {
+  TodoItem(Todo todo, TodoController itemController) {
     this.todo = todo;
     this.itemController = itemController;
   }

@@ -16,7 +16,7 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  TodoItemController itemController;
+  TodoController itemController;
   TextEditingController textController;
 
   ///
@@ -25,7 +25,7 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     super.initState();
-    itemController = TodoItemController(this);
+    itemController = TodoController(this);
     textController = TextEditingController();
   }
 
@@ -115,7 +115,7 @@ class _MainAppState extends State<MainApp> {
 ///
 /// Handles the todo items
 ///
-class TodoItemController {
+class TodoController {
   TodoRepository repo = TodoRepository();
   _MainAppState _mainAppState;
 
@@ -124,7 +124,7 @@ class TodoItemController {
   ///
   /// Constructor that gets every open item from the repository
   ///
-  TodoItemController(_MainAppState _mainAppState) {
+  TodoController(_MainAppState _mainAppState) {
     this._mainAppState = _mainAppState;
     repo.init().then((_) {
       repo.getAllOpenTodos().then((todos) {
