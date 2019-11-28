@@ -15,7 +15,7 @@ class TodoRepository {
     database = await openDatabase(join(await getDatabasesPath(), "todo.db"),
         onCreate: (db, version) {
       return db.execute(
-          "CREATE TABLE todos(id INTEGER PRIMARY KEY, title TEXT, done INTEGER)");
+          "CREATE TABLE todo(id INTEGER PRIMARY KEY, title TEXT, done INTEGER)");
     }, version: 1);
   }
 
